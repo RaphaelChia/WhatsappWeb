@@ -10,4 +10,5 @@ class CodeDispensaryView : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         TODO("life's short, enjoy coding")
+    }
 }
