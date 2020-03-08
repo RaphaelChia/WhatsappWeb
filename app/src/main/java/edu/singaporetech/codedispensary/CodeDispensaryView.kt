@@ -9,6 +9,6 @@ class CodeDispensaryView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        TODO("life's short, enjoy coding")
+        // TODO everything you need to realize this
     }
 }

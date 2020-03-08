@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CodeDispensaryApp</string>
+    <string name="placeholder_output">\"Your emptiness is but the preparation for being filled\"\n -
+        1st emptiness quote when googling...</string>
 </resources>

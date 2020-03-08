@@ -9,16 +9,18 @@ import kotlin.random.Random
  * Code dispensary that doesn't need UI to run.
  * Main roles:
  * - generate 8-char codes at regular intervals
- * - provide functions for "others" to generate
+ * - provide functions for "others" to get their desired outputs
  */
 class CodeDispensaryService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        TODO("what you need")
+        // TODO what you need to get this working
+        return START_STICKY
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        TODO("binding code lah, what else...")
+        // TODO something... as we normally don't always need nulls :)
+        return null
     }
 
     companion object {
