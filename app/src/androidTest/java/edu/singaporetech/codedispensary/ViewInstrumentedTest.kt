@@ -33,7 +33,7 @@ class ViewInstrumentedTest {
     @Test
     fun onLaunch_containsRequiredUI() {
         Log.i(TAG, """
-            ### 0. UI elements all exist
+            ### 5. UI elements all exist
             - wait a teeny bit
             - check text element textViewResult exist
             - check buttons "$PRINT_BUTTON_TEXT" and "$SHUTDOWN_BUTTON_TEXT" exist 
