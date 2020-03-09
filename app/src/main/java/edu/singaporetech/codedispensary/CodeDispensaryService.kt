@@ -14,12 +14,12 @@ import kotlin.random.Random
 class CodeDispensaryService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // TODO what you need to get this working
+        // TODO something here unless your service does nothing :)
         return START_STICKY
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        // TODO something... as we normally don't always need nulls :)
+        // TODO something here if you want to offer binding, else leave as null
         return null
     }
 
