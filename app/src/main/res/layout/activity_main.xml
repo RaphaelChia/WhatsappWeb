@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CodeDispensaryView">
+    android:orientation="vertical"
+    tools:context=".CodeDispensaryView"
+    android:paddingTop="50sp"
+    android:paddingLeft="10sp"
+    android:paddingRight="10sp">
+
+
+    <Button
+        android:id="@+id/shutdownBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SHUTDOWN" />
+
+    <Button
+        android:id="@+id/printBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PRINT COD3" />
 
     <TextView
-        android:id="@+id/textViewResult"
+        android:id="@+id/textViewPrint"
         android:text="@string/placeholder_output"
         android:textSize="16sp"
         android:textAlignment="center"
@@ -18,4 +35,4 @@
         android:textColor="#B8013F"
         app:layout_constraintTop_toTopOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

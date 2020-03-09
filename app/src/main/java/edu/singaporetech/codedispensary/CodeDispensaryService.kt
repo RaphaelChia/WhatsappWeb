@@ -1,9 +1,17 @@
 package edu.singaporetech.codedispensary
 
+import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
+import android.os.Binder
 import android.os.IBinder
+import edu.singaporetech.codedispensary.utils.Companion.charPool
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.random.Random
+import edu.singaporetech.codedispensary.NotificationServices as ns
 
 /**
  * Code dispensary that doesn't need UI to run.
@@ -11,16 +19,53 @@ import kotlin.random.Random
  * - generate 8-char codes at regular intervals
  * - provide functions for "others" to get their desired outputs
  */
-class CodeDispensaryService : Service() {
+class CodeDispensaryService : Service() , CoroutineScope by MainScope(){
+    private val binder = LocalBinder()
+    private var currentString :String = ""
+    lateinit var notiMgr : NotificationManager
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // TODO something here unless your service does nothing :)
+        notiMgr = ns.getNotiMgr(this)
+        launch {
+            while(true){
+                dispenseCode()
+            }
+        }
         return START_STICKY
     }
 
+
+    /**
+     * This function will have a delay of 1687ms (declared in utils.kt)
+     * and will generate the random string using generateRand()
+     * The notification will be fired after the generateRand() function had run.
+     * @see generateRand()
+     */
+    suspend fun dispenseCode() {
+        delay(utils.GENERATOR_DELAY)
+        this.currentString = generateRand()
+        val (noti,id) = ns.buildNotification(
+            this,
+            CodeDispensaryView::class.java,
+            utils.NOTIFICATION_CHANNEL_ID,
+            utils.NOTIFICATION_TITLE,
+            "Current Code: ${this.currentString}"
+        )
+        notiMgr.notify(utils.NOTIFICATION_ID_CODE,noti)
+    }
+
+    /**
+     * This is a getter to get the currently generated Number
+     * @return String of 8 char code
+     * Currently used by CodeDispensaryView
+     * @See CodeDispensaryView
+     */
+    fun getCurString():String{
+        return this.currentString
+    }
+
     override fun onBind(intent: Intent?): IBinder? {
-        // TODO something here if you want to offer binding, else leave as null
-        return null
+        return binder
     }
 
     companion object {
@@ -60,4 +105,27 @@ class CodeDispensaryService : Service() {
             return "\"${msgs[Random(seed.toInt()).nextInt(msgs.size)]}\"\n$code"
         }
     }
+
+    inner class LocalBinder(): Binder(){
+        fun getService(): CodeDispensaryService {
+            return this@CodeDispensaryService
+
+        }
+    }
+
+    /**
+     * This function generates a 8 char long code. The code generated is chosen from a
+     * charPool at utils.kt.
+     * @return String of randomly generated ID
+     * @see utils
+     */
+    fun generateRand():String{
+        val currId = (1..8)
+            .map { i -> kotlin.random.Random.nextInt(0, charPool.size) }
+            .map(charPool::get)
+            .joinToString("")
+        return currId
+    }
+
+
 }
